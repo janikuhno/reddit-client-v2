@@ -22,7 +22,7 @@
 }
 
 .post-image-container {
-    width: 100%;
+    width: 50%;
     overflow: hidden;
     border-radius: var(--radius-2);
 }
