@@ -1,25 +1,3 @@
-export const posts = [
-  {
-    subreddit: '/r/Home/',
-    title: 'post #1',
-  },
-  {
-    subreddit: '/r/Home/',
-    title: 'post #2',
-  },
-];
-export const subreddits = {
-  subReddits: [
-    {
-      name: 'Home',
-      url: '/r/Home/',
-      id: '2qs0k',
-    },
-  ],
-  activeSubreddit: '/r/Home/',
-};
-
-/*
 export const API_ROOT = 'https://www.reddit.com';
 
 export const getSubredditPosts = async (subreddit) => {
@@ -42,4 +20,3 @@ export const getPostComments = async (permalink) => {
 
   return json[1].data.children.map((subreddit) => subreddit.data);
 };
-*/
