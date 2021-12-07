@@ -4,6 +4,7 @@ header .logo {
   grid-column: 1/2;
   display: flex;
   align-items: center;
+  font-size: 1.5rem;
 }
 header {
   color: var(--color-branding);
@@ -28,6 +29,7 @@ header span {
   padding: var(--spacing-1) var(--spacing-2);
   height: max-content;
   border-radius: var(--radius);
+  color: var(--color-text-secondary);
 }
 
 .search button {
