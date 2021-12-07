@@ -1,0 +1,17 @@
+header .logo {
+    font-weight: bold;
+    padding: var(--spacing-1) 0;
+    grid-column: 1/2;
+    display: flex;
+    align-items: center;
+}
+header {
+    color: var(--color-branding);
+    background: var(--color-foreground);
+    box-shadow: var(--box-shadow);
+    height: 64px;
+    padding: 0 var(--spacing-5);
+}
+header span {
+    color: var(--color-text-header);
+}
