@@ -75,6 +75,7 @@ const Home = () => {
 
   if (selectedPost !== '') {
     const individualPost = posts.filter((post) => post.name === selectedPost);
+    const postIndex = posts.findIndex((post) => post.name === selectedPost);
 
     return (
       <>
@@ -84,12 +85,11 @@ const Home = () => {
           size={50}
           onClick={() => dispatch(setSelectedPost(''))}
         />
-        {individualPost.map((post, index) => (
+        {individualPost.map((post) => (
           <Post
             key={post.id}
             post={post}
-            onToggleComments={onToggleComments(index)}
-            selectedPost={selectedPost}
+            onToggleComments={onToggleComments(postIndex)}
           />
         ))}
       </>

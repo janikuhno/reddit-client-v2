@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedPost } from '../../store/redditSlice';
 import Card from '../../components/Card';
 import { dateCalculator } from '../../utils/dateCalculator';
@@ -11,10 +11,10 @@ import { TiMessage } from 'react-icons/ti';
 import shortenNumber from '../../utils/shortenNumber';
 
 const Post = (props) => {
-  const { post, onToggleComments, selectedPost } = props;
+  const { post, onToggleComments } = props;
   const dispatch = useDispatch();
-  /*const reddit = useSelector((state) => state.reddit);
-  const { selectedPost } = reddit;*/
+  const reddit = useSelector((state) => state.reddit);
+  const { selectedPost } = reddit;
 
   const renderComments = () => {
     if (post.errorComments) {
