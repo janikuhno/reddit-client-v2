@@ -13,7 +13,7 @@ const Comment = (props) => {
           {dateCalculator(comment.created_utc)}
         </p>
       </div>
-      <ReactMarkdown source={comment.body} />
+      <ReactMarkdown className="comment-body" children={comment.body} />
     </div>
   );
 };

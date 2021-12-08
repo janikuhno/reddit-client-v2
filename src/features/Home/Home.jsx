@@ -85,7 +85,12 @@ const Home = () => {
           onClick={() => dispatch(setSelectedPost(''))}
         />
         {individualPost.map((post, index) => (
-          <Post key={post.id} post={post} onToggle={onToggleComments(index)} />
+          <Post
+            key={post.id}
+            post={post}
+            onToggleComments={onToggleComments(index)}
+            selectedPost={selectedPost}
+          />
         ))}
       </>
     );
@@ -94,7 +99,12 @@ const Home = () => {
   return (
     <>
       {posts.map((post, index) => (
-        <Post key={post.id} post={post} onToggle={onToggleComments(index)} />
+        <Post
+          key={post.id}
+          post={post}
+          onToggleComments={onToggleComments(index)}
+          selectedPost={selectedPost}
+        />
       ))}
     </>
   );

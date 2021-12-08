@@ -39,7 +39,7 @@ const redditSlice = createSlice({
     setSelectedPost(state, action) {
       state.selectedPost = action.payload;
     },
-    toggleShowingComment(state, action) {
+    toggleShowingComments(state, action) {
       state.posts[action.payload].showingComments =
         !state.posts[action.payload].showingComments;
     },
@@ -50,15 +50,15 @@ const redditSlice = createSlice({
         return;
       }
       state.posts[action.payload].loadingComments = true;
-      state.posts[action.payload].error = false;
+      state.posts[action.payload].errorComments = false;
     },
     getCommentsSuccess(state, action) {
-      state.posts[action.payload].loadingComments = false;
-      state.posts[action.payload].comments = action.payload.comments;
+      state.posts[action.payload.index].loadingComments = false;
+      state.posts[action.payload.index].comments = action.payload.comments;
     },
     getCommentsFailed(state, action) {
-      state.posts[action.payload].loadingComments = false;
-      state.posts[action.payload].error = true;
+      state.posts[action.payload.index].loadingComments = false;
+      state.posts[action.payload].errorComments = true;
     },
   },
 });
@@ -71,7 +71,7 @@ export const {
   setSearchTerm,
   setSelectedSubreddit,
   setSelectedPost,
-  toggleShowingComment,
+  toggleShowingComments,
   startGetComments,
   getCommentsSuccess,
   getCommentsFailed,

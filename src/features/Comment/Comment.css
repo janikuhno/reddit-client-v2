@@ -25,3 +25,7 @@
   font-weight: bold;
   color: var(--color-branding);
 }
+
+.comment-body {
+    color: var(--color-text-body);
+}

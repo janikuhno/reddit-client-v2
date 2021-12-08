@@ -1,19 +1,20 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setSelectedPost } from '../../store/redditSlice';
 import Card from '../../components/Card';
 import { dateCalculator } from '../../utils/dateCalculator';
 import './Post.css';
 import Comment from '../Comment/Comment';
-import { Skeleton } from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import { TiMessage } from 'react-icons/ti';
 import shortenNumber from '../../utils/shortenNumber';
 
 const Post = (props) => {
-  const { post, onToggleComments } = props;
+  const { post, onToggleComments, selectedPost } = props;
   const dispatch = useDispatch();
-  const reddit = useSelector((state) => state.reddit);
-  const { selectedPost } = reddit;
+  /*const reddit = useSelector((state) => state.reddit);
+  const { selectedPost } = reddit;*/
 
   const renderComments = () => {
     if (post.errorComments) {
@@ -27,10 +28,7 @@ const Post = (props) => {
     if (post.loadingComments) {
       return (
         <div>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
+          <Skeleton count={4} />
         </div>
       );
     }
@@ -48,9 +46,9 @@ const Post = (props) => {
     return null;
   };
 
-  let h3;
+  let postTitle;
   if (selectedPost === '') {
-    h3 = (
+    postTitle = (
       <h3
         className="post-title"
         onClick={() => dispatch(setSelectedPost(post.name))}
@@ -59,7 +57,7 @@ const Post = (props) => {
       </h3>
     );
   } else {
-    h3 = <h3 className="post-title no-hover">{post.title}</h3>;
+    postTitle = <h3 className="post-title no-hover">{post.title}</h3>;
   }
 
   return (
@@ -67,7 +65,7 @@ const Post = (props) => {
       <Card>
         <div className="post-wrapper">
           <div className="post-container">
-            {h3}
+            {postTitle}
 
             <div className="post-image-container">
               <img src={post.url} alt="" className="post-image" />
@@ -82,7 +80,7 @@ const Post = (props) => {
                 <button
                   type="button"
                   className={`icon-action-button ${
-                    post.loadingComments && 'showing-comments'
+                    post.showingComments && 'showing-comments'
                   }`}
                   onClick={() => onToggleComments(post.permalink)}
                   aria-label="Show comments"
