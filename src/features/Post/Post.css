@@ -78,3 +78,39 @@
 .showing-comments {
   color: var(--color-branding);
 }
+
+.post-votes-container {
+  margin-right: var(--spacing-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post-votes-container .post-votes-value {
+  margin: var(--spacing-1) 0;
+  font-weight: bold;
+}
+
+.post-votes-value.up-vote {
+  color: var(--color-success) !important;
+}
+
+.post-votes-value.down-vote {
+  color: var(--color-alert) !important;
+}
+
+.up-vote:hover {
+  color: var(--color-success) !important;
+}
+
+.up-vote.active {
+  color: var(--color-success) !important;
+}
+
+.down-vote:hover {
+  color: var(--color-alert) !important;
+}
+
+.down-vote.active {
+  color: var(--color-alert) !important;
+}
