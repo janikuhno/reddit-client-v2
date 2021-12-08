@@ -4,14 +4,51 @@ import { setSelectedPost } from '../../store/redditSlice';
 import Card from '../../components/Card';
 import { dateCalculator } from '../../utils/dateCalculator';
 import './Post.css';
+import Comment from '../Comment/Comment';
+import { Skeleton } from 'react-loading-skeleton';
+import { TiMessage } from 'react-icons/ti';
+import shortenNumber from '../../utils/shortenNumber';
 
 const Post = (props) => {
-  const { post } = props;
+  const { post, onToggleComments } = props;
   const dispatch = useDispatch();
   const reddit = useSelector((state) => state.reddit);
   const { selectedPost } = reddit;
-  let h3;
 
+  const renderComments = () => {
+    if (post.errorComments) {
+      return (
+        <div>
+          <h3>Error loading comments</h3>
+        </div>
+      );
+    }
+
+    if (post.loadingComments) {
+      return (
+        <div>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </div>
+      );
+    }
+
+    if (post.showingComments) {
+      return (
+        <div>
+          {post.comments.map((comment) => (
+            <Comment comment={comment} key={comment.id} />
+          ))}
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  let h3;
   if (selectedPost === '') {
     h3 = (
       <h3
@@ -41,7 +78,22 @@ const Post = (props) => {
                 <span className="author-username">{post.author}</span>
               </span>
               <span>{dateCalculator(post.created_utc)}</span>
+              <span className="post-comments-container">
+                <button
+                  type="button"
+                  className={`icon-action-button ${
+                    post.loadingComments && 'showing-comments'
+                  }`}
+                  onClick={() => onToggleComments(post.permalink)}
+                  aria-label="Show comments"
+                >
+                  <TiMessage className="icon-action" />
+                </button>
+                {shortenNumber(post.num_comments, 1)}
+              </span>
             </div>
+
+            {renderComments()}
           </div>
         </div>
       </Card>
