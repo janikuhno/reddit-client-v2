@@ -51,7 +51,7 @@ const Post = (props) => {
     postTitle = (
       <h3
         className="post-title"
-        onClick={() => dispatch(setSelectedPost(post.name))}
+        onClick={() => dispatch(setSelectedPost(post.name), onToggleComments(post.permalink))}
       >
         {post.title}
       </h3>

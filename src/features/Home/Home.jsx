@@ -7,6 +7,7 @@ import {
   setSearchTerm,
   setSelectedPost,
   fetchComments,
+  toggleShowingComments,
 } from '../../store/redditSlice';
 import { BsArrow90DegLeft } from 'react-icons/bs';
 import './Home.css';
@@ -83,7 +84,7 @@ const Home = () => {
           className="back"
           title="Back to all posts"
           size={50}
-          onClick={() => dispatch(setSelectedPost(''))}
+          onClick={() => dispatch(setSelectedPost(''), dispatch(toggleShowingComments(postIndex)))}
         />
         {individualPost.map((post) => (
           <Post
