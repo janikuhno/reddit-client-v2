@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import Header from './features/Header/Header';
 import Home from './features/Home/Home';
+import Subreddits from './features/Subreddits/Subreddits';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <main>
         <Home />
       </main>
-      <aside></aside>
+      <aside>
+        <Subreddits />
+      </aside>
     </Router>
   );
 }
