@@ -21,7 +21,7 @@
 }
 
 .subreddit-card button:hover {
-  background: var(--color-on-hover);
+  background: var(--color-on-hover-alt);
 }
 
 .selected-subreddit {
