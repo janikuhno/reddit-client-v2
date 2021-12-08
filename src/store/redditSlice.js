@@ -89,16 +89,3 @@ export const selectFilteredPosts = createSelector(
     return posts;
   }
 );
-
-/*
-export const selectIndividualPost = createSelector(
-  selectPosts,
-  (posts, selectedPost) => {
-    if (selectedPost !== '') {
-      return posts.filter((post) => post.name === selectedPost);
-    }
-
-    return '';
-  }
-);
-*/

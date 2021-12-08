@@ -5,19 +5,25 @@ import {
   fetchPosts,
   selectFilteredPosts,
   setSearchTerm,
+  setSelectedPost,
 } from '../../store/redditSlice';
+import { BsArrow90DegLeft } from 'react-icons/bs';
 import './Home.css';
 import Loader from 'react-loader-spinner';
 
 const Home = () => {
   const reddit = useSelector((state) => state.reddit);
-  const { isLoading, error, searchTerm, selectedSubreddit, selectedPost } = reddit;
+  const { isLoading, error, searchTerm, selectedSubreddit, selectedPost } =
+    reddit;
   const posts = useSelector(selectFilteredPosts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchPosts(selectedSubreddit));
-  }, [selectedSubreddit, selectedPost]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSubreddit]);
+
+  useEffect(() => {}, [selectedPost]);
 
   if (isLoading) {
     return (
@@ -55,6 +61,24 @@ const Home = () => {
           Go to /r/Home/
         </button>
       </div>
+    );
+  }
+
+  if (selectedPost !== '') {
+    const individualPost = posts.filter((post) => post.name === selectedPost);
+
+    return (
+      <>
+        <BsArrow90DegLeft
+          className="back"
+          title="Back to all posts"
+          size={50}
+          onClick={() => dispatch(setSelectedPost(''))}
+        />
+        {individualPost.map((post, index) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </>
     );
   }
 
