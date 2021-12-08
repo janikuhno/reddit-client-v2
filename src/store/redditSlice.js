@@ -1,5 +1,5 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import { getSubredditPosts } from '../api/reddit';
+import { getPostComments, getSubredditPosts } from '../api/reddit';
 
 const initialState = {
   posts: [],
@@ -39,6 +39,27 @@ const redditSlice = createSlice({
     setSelectedPost(state, action) {
       state.selectedPost = action.payload;
     },
+    toggleShowingComment(state, action) {
+      state.posts[action.payload].showingComments =
+        !state.posts[action.payload].showingComments;
+    },
+    startGetComments(state, action) {
+      state.posts[action.payload].showingComments =
+        !state.posts[action.payload].showingComments;
+      if (!state.posts[action.payload].showingComments) {
+        return;
+      }
+      state.posts[action.payload].loadingComments = true;
+      state.posts[action.payload].error = false;
+    },
+    getCommentsSuccess(state, action) {
+      state.posts[action.payload].loadingComments = false;
+      state.posts[action.payload].comments = action.payload.comments;
+    },
+    getCommentsFailed(state, action) {
+      state.posts[action.payload].loadingComments = false;
+      state.posts[action.payload].error = true;
+    },
   },
 });
 
@@ -50,6 +71,10 @@ export const {
   setSearchTerm,
   setSelectedSubreddit,
   setSelectedPost,
+  toggleShowingComment,
+  startGetComments,
+  getCommentsSuccess,
+  getCommentsFailed,
 } = redditSlice.actions;
 
 export default redditSlice.reducer;
@@ -69,6 +94,16 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
     dispatch(getPostsSuccess(postsWithMetadata));
   } catch (error) {
     dispatch(getPostsFailed());
+  }
+};
+
+export const fetchComments = (index, permalink) => async (dispatch) => {
+  try {
+    dispatch(startGetComments(index));
+    const comments = await getPostComments(permalink);
+    dispatch(getCommentsSuccess({ index, comments }));
+  } catch (error) {
+    dispatch(getCommentsFailed(index));
   }
 };
 
