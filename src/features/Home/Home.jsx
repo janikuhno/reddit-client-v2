@@ -4,7 +4,6 @@ import Post from '../Post/Post';
 import {
   fetchPosts,
   selectFilteredPosts,
-  selectedPost,
   setSearchTerm,
 } from '../../store/redditSlice';
 import './Home.css';
@@ -12,14 +11,13 @@ import Loader from 'react-loader-spinner';
 
 const Home = () => {
   const reddit = useSelector((state) => state.reddit);
-  const { isLoading, error, searchTerm, selectedSubreddit } = reddit;
+  const { isLoading, error, searchTerm, selectedSubreddit, selectedPost } = reddit;
   const posts = useSelector(selectFilteredPosts);
   const dispatch = useDispatch();
 
-  /* useEffect selectedPost */
   useEffect(() => {
     dispatch(fetchPosts(selectedSubreddit));
-  }, [selectedSubreddit]);
+  }, [selectedSubreddit, selectedPost]);
 
   if (isLoading) {
     return (

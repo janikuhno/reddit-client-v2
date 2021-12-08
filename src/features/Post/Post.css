@@ -35,6 +35,11 @@
     margin: 0;
     margin-bottom: var(--spacing-2);
     color: var(--color-text-header);
+    cursor: pointer;
+}
+
+.post-title:hover {
+    color: var(--color-text-link);
 }
 
 .author-details {
