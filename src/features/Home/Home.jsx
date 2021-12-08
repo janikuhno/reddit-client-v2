@@ -6,6 +6,7 @@ import {
   selectFilteredPosts,
   setSearchTerm,
   setSelectedPost,
+  fetchComments,
 } from '../../store/redditSlice';
 import { BsArrow90DegLeft } from 'react-icons/bs';
 import './Home.css';
@@ -24,6 +25,14 @@ const Home = () => {
   }, [selectedSubreddit]);
 
   useEffect(() => {}, [selectedPost]);
+
+  const onToggleComments = (index) => {
+    const getComments = (permalink) => {
+      dispatch(fetchComments(index, permalink));
+    };
+
+    return getComments;
+  };
 
   if (isLoading) {
     return (
@@ -76,7 +85,7 @@ const Home = () => {
           onClick={() => dispatch(setSelectedPost(''))}
         />
         {individualPost.map((post, index) => (
-          <Post key={post.id} post={post} />
+          <Post key={post.id} post={post} onToggle={onToggleComments(index)} />
         ))}
       </>
     );
@@ -85,7 +94,7 @@ const Home = () => {
   return (
     <>
       {posts.map((post, index) => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} onToggle={onToggleComments(index)} />
       ))}
     </>
   );
