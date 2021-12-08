@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   searchTerm: '',
   selectedSubreddit: '/r/Home/',
+  selectedPost: '',
 };
 
 const redditSlice = createSlice({
@@ -35,6 +36,9 @@ const redditSlice = createSlice({
       state.selectedSubreddit = action.payload;
       state.searchTerm = '';
     },
+    setSelectedPost(state, action) {
+      state.selectedPost = action.payload;
+    },
   },
 });
 
@@ -45,6 +49,7 @@ export const {
   getPostsFailed,
   setSearchTerm,
   setSelectedSubreddit,
+  setSelectedPost,
 } = redditSlice.actions;
 
 export default redditSlice.reducer;
@@ -84,3 +89,16 @@ export const selectFilteredPosts = createSelector(
     return posts;
   }
 );
+
+/*
+export const selectIndividualPost = createSelector(
+  selectPosts,
+  (posts, selectedPost) => {
+    if (selectedPost !== '') {
+      return posts.filter((post) => post.name === selectedPost);
+    }
+
+    return '';
+  }
+);
+*/

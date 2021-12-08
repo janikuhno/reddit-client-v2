@@ -11,6 +11,7 @@ const Post = (props) => {
       <Card>
         <div className="post-wrapper">
           <div className="post-container">
+              {/* add dispatch post.name */}
             <h3 className="post-title">{post.title}</h3>
 
             <div className="post-image-container">
